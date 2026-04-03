@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light" data-dys="false" data-daltonien="false">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lumio — Partagez vos moments lumineux. Réseau social de photos accessible à tous.">
+  <title>Lumio — Partagez vos moments lumineux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<!-- SKIP LINK RGAA -->
+<a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+<!-- =================== ACCESSIBILITY TOOLBAR =================== -->
+<aside class="a11y-bar" id="a11yBar" aria-label="Barre d'accessibilité">
+  <button class="a11y-btn" id="a11yToggle" data-tooltip="Afficher/Masquer" aria-label="Afficher ou masquer la barre d'accessibilité" title="Afficher/Masquer">☰</button>
+  <div class="a11y-divider" role="separator"></div>
+  <button class="a11y-btn" id="btnTheme" data-tooltip="Thème sombre/clair" aria-label="Basculer thème sombre et clair" aria-pressed="false" title="Thème sombre/clair">🌙</button>
+  <button class="a11y-btn" id="btnDys" data-tooltip="Mode DYS" aria-label="Activer le mode dyslexie" aria-pressed="false" title="Mode DYS">𝔸</button>
+  <button class="a11y-btn" id="btnDaltonien" data-tooltip="Mode daltonien" aria-label="Activer le mode daltonien" aria-pressed="false" title="Mode daltonien">👁</button>
+  <div class="a11y-divider" role="separator"></div>
+  <button class="a11y-btn" id="btnZoomIn" data-tooltip="Agrandir le texte" aria-label="Agrandir la taille du texte" title="Zoom +">A+</button>
+  <button class="a11y-btn" id="btnZoomOut" data-tooltip="Réduire le texte" aria-label="Réduire la taille du texte" title="Zoom -">A-</button>
+  <button class="a11y-btn" id="btnZoomReset" data-tooltip="Taille par défaut" aria-label="Remettre la taille du texte par défaut" title="Zoom ↺">↺</button>
+</aside>
+
+<!-- =================== HEADER =================== -->
+<header class="header" role="banner">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="Lumio — Accueil">Lumio</a>
+
+    <div class="search-wrap" role="search">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input type="search" class="search-input" placeholder="Rechercher…"
+             aria-label="Rechercher des utilisateurs ou des contenus"
+             autocomplete="off" id="searchInput">
+    </div>
+
+    <nav class="nav-actions" aria-label="Navigation principale">
+      <button class="nav-btn" id="btnHome" aria-label="Accueil" title="Accueil">🏠</button>
+      <button class="nav-btn" id="btnUpload" aria-label="Publier une photo" title="Publier">➕</button>
+      <button class="nav-btn" aria-label="Explorer" title="Explorer">🔎</button>
+      <button class="nav-btn" style="position:relative" aria-label="Notifications (3 nouvelles)" title="Notifications">
+        ❤️ <span class="badge" aria-hidden="true">3</span>
+      </button>
+      <button class="nav-btn" onclick="openProfile()" aria-label="Mon profil" title="Profil">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700">M</div>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== MAIN =================== -->
+<main id="main-content" class="main-layout" role="main">
+
+  <!-- FEED COLUMN -->
+  <section aria-label="Fil d'actualité">
+
+    <!-- STORIES -->
+    <section aria-label="Stories" class="stories-wrap">
+      <div class="stories-scroll" role="list" aria-label="Liste des stories">
+
+        <!-- Ma story -->
+        <div class="story-item" role="listitem">
+          <button class="story-ring" aria-label="Ajouter une story" onclick="showToast('Fonctionnalité story — bientôt disponible !')">
+            <div class="story-avatar" style="background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:700;width:100%;height:100%;border-radius:50%">M</div>
+            <span class="story-add" aria-hidden="true">+</span>
+          </button>
+          <span class="story-name">Moi</span>
+        </div>
+
+        <!-- Stories utilisateurs -->
+        <div id="storiesList" role="list"></div>
+      </div>
+    </section>
+
+    <!-- FEED POSTS -->
+    <div class="feed" id="feedPosts" aria-label="Publications" aria-live="polite"></div>
+
+    <!-- Loader -->
+    <div id="feedLoader" style="text-align:center;padding:24px;color:var(--text-muted)" aria-live="polite" aria-label="Chargement des publications">
+      <span aria-hidden="true">✨</span> Chargement…
+    </div>
+
+  </section>
+
+  <!-- SIDEBAR -->
+  <aside aria-label="Suggestions et informations">
+
+    <!-- Profile card -->
+    <div class="sidebar-profile" aria-label="Mon profil">
+      <div class="sidebar-avatar">
+        <div style="width:100%;height:100%;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">M</div>
+      </div>
+      <div>
+        <div class="sidebar-name">marie_lumio</div>
+        <div class="sidebar-handle">Marie Dupont</div>
+      </div>
+      <button class="sidebar-switch" aria-label="Changer de compte">Changer</button>
+    </div>
+
+    <!-- Suggestions -->
+    <div>
+      <div class="sidebar-section-title">
+        <span>Suggestions pour vous</span>
+        <a href="#" aria-label="Voir toutes les suggestions">Tout voir</a>
+      </div>
+      <ul id="suggestList" aria-label="Utilisateurs suggérés"></ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="sidebar-footer" aria-label="Liens légaux et informations">
+      <p>
+        <a href="#">À propos</a> · <a href="#">Aide</a> · <a href="#">Presse</a> · <a href="#">API</a> · <a href="#">Emplois</a> · <a href="#">Confidentialité</a> · <a href="#">Conditions</a> · <a href="#">Lieux</a> · <a href="#">Langue</a>
+      </p>
+      <p style="margin-top:8px">© 2025 Lumio — Fait avec 💜 en France</p>
+      <p style="margin-top:4px">Conformité <abbr title="Référentiel Général d'Amélioration de l'Accessibilité">RGAA</abbr> 4.1</p>
+    </footer>
+  </aside>
+
+</main>
+
+<!-- =================== BOTTOM NAV (mobile) =================== -->
+<nav class="bottom-nav" aria-label="Navigation mobile">
+  <ul>
+    <li><button class="bottom-nav-btn active" aria-label="Accueil" aria-current="page">🏠<span>Accueil</span></button></li>
+    <li><button class="bottom-nav-btn" aria-label="Explorer">🔎<span>Explorer</span></button></li>
+    <li><button class="bottom-nav-btn" id="btnUploadMobile" aria-label="Publier">➕<span>Publier</span></button></li>
+    <li><button class="bottom-nav-btn" style="position:relative" aria-label="Notifications">❤️<span class="badge" aria-hidden="true" style="top:2px;right:12px">3</span><span>Activité</span></button></li>
+    <li><button class="bottom-nav-btn" aria-label="Mon profil">👤<span>Profil</span></button></li>
+  </ul>
+</nav>
+
+<!-- =================== STORY MODAL =================== -->
+<div class="modal-overlay" id="storyModal" role="dialog" aria-modal="true" aria-label="Visualiseur de story">
+  <div class="story-modal">
+    <div class="story-progress" id="storyProgress" aria-hidden="true"></div>
+    <div class="story-modal-header" aria-hidden="true">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--gradient);border:2px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700" id="storyModalAvatar">?</div>
+      <div>
+        <div style="color:#fff;font-weight:600;font-size:14px" id="storyModalName">Utilisateur</div>
+        <div style="color:rgba(255,255,255,.7);font-size:12px" id="storyModalTime">Il y a 2h</div>
+      </div>
+    </div>
+    <button class="story-modal-close" onclick="closeStory()" aria-label="Fermer la story">✕</button>
+    <div class="story-modal-content" id="storyContent" aria-live="polite">📸</div>
+  </div>
+</div>
+
+<!-- =================== UPLOAD MODAL =================== -->
+<div class="modal-overlay" id="uploadModal" role="dialog" aria-modal="true" aria-label="Publier une nouvelle photo" aria-labelledby="uploadTitle">
+  <div class="upload-modal">
+    <button class="modal-close-btn" onclick="closeUpload()" aria-label="Fermer la fenêtre de publication">✕</button>
+    <h2 class="upload-title" id="uploadTitle">Nouvelle publication</h2>
+
+    <div class="upload-zone" id="uploadZone" role="button" tabindex="0"
+         aria-label="Glissez-déposez une image ou cliquez pour sélectionner"
+         ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+      <div id="uploadZoneContent">
+        <div class="upload-zone-icon" aria-hidden="true">🖼️</div>
+        <p class="upload-zone-text">
+          Glissez vos photos ici<br>
+          <span class="upload-zone-cta">ou sélectionnez depuis votre appareil</span>
+        </p>
+      </div>
+      <img id="uploadPreview" class="upload-preview-img" style="display:none" alt="Aperçu de votre photo">
+      <input type="file" id="fileInput" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer" aria-label="Sélectionner une image">
+    </div>
+
+    <br>
+    <label for="captionInput" style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Légende</label>
+    <textarea class="upload-caption" id="captionInput" placeholder="Écrivez une légende…" aria-label="Légende de la publication" maxlength="2200"></textarea>
+
+    <label for="locationInput" style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Lieu (optionnel)</label>
+    <input type="text" id="locationInput" placeholder="Ajouter un lieu…"
+           style="width:100%;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:14px;color:var(--text);margin-bottom:16px"
+           aria-label="Lieu de la publication">
+
+    <button class="upload-submit" id="uploadSubmit" onclick="submitPost()" aria-label="Publier votre photo">
+      Partager 🌟
+    </button>
+  </div>
+</div>
+
+<!-- =================== TOAST =================== -->
+<div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- =================== JAVASCRIPT =================== -->
+<script src="./js/app.js"></script>
+</body>
+</html>
