@@ -1,4 +1,4 @@
-# 🌟 Lumio — Clone Instagram accessible
+# 🌟 Lumio — Social Web App
 
 > *Partagez vos moments lumineux.* Réseau social de photos construit avec accessibilité et inclusion au cœur.
 
